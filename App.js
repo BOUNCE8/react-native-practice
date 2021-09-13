@@ -1,16 +1,36 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  FlatList,
+} from "react-native";
+
+import { GoalItem } from "./components/GoalItem";
+import { GoalCreator } from "./components/GoalCreator";
 
 export default function App() {
+  const [goalList, setGoalList] = useState([]);
+
+  const addGoalHandler = (goalTitle) => {
+    setGoalList((currentGoals) => [
+      ...currentGoals,
+      { key: Math.random().toString(), value: goalTitle },
+    ]);
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View>
-        <View style={styles.goalCreate}>
-          <TextInput placeholder="Add a goal"></TextInput>
-          <Button title="+"></Button>
-        </View>
+        <GoalCreator addGoalHandler={addGoalHandler} />
+        <FlatList
+          data={goalList}
+          renderItem={(itemData) => <GoalItem title={itemData.item.value} />}
+        />
       </View>
     </View>
   );
@@ -18,20 +38,10 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 45,
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 2,
-    borderColor: "black",
   },
-  goalCreate: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    borderWidth: 1.5,
-    borderColor: "blue",
-    width: 300,
-    paddingHorizontal: 10,
-  },
+  goalList: { marginVertical: 10 },
 });
