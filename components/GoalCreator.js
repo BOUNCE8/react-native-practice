@@ -24,6 +24,7 @@ export const GoalCreator = ({ addGoalHandler }) => {
 
 const styles = StyleSheet.create({
   goalCreate: {
+    marginBottom: 5,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
