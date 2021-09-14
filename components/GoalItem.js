@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Modal } from "react-native";
 
 export const GoalItem = ({ title, id, removeGoalHandler }) => {
   return (
