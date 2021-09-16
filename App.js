@@ -1,7 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, View, FlatList, Button, Modal } from "react-native";
+import { StyleSheet, View, FlatList, Button, Text } from "react-native";
 
+import { ThemeProvider } from "./Utilities/ThemeManager";
+import { HeaderBar } from "./components/HeaderBar";
 import { GoalItem } from "./components/GoalItem";
 import { GoalCreator } from "./components/GoalCreator";
 
@@ -28,29 +30,35 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <View style={styles.addGoalModal}>
-        <Button title="Add new goal" onPress={() => setIsModalVisible(true)} />
+    <ThemeProvider>
+      <View style={styles.container}>
+        <HeaderBar />
+        <StatusBar style="auto" />
+        <View style={styles.addGoalModal}>
+          <Button
+            title="Add new goal"
+            onPress={() => setIsModalVisible(true)}
+          />
 
-        <GoalCreator
-          cancelAddGoalHandler={cancelAddGoalHandler}
-          isModalVisible={isModalVisible}
-          addGoalHandler={addGoalHandler}
-        />
+          <GoalCreator
+            cancelAddGoalHandler={cancelAddGoalHandler}
+            isModalVisible={isModalVisible}
+            addGoalHandler={addGoalHandler}
+          />
 
-        <FlatList
-          data={goalList}
-          renderItem={(itemData) => (
-            <GoalItem
-              id={itemData.item.id}
-              removeGoalHandler={removeGoalHandler}
-              title={itemData.item.value}
-            />
-          )}
-        />
+          <FlatList
+            data={goalList}
+            renderItem={(itemData) => (
+              <GoalItem
+                id={itemData.item.id}
+                removeGoalHandler={removeGoalHandler}
+                title={itemData.item.value}
+              />
+            )}
+          />
+        </View>
       </View>
-    </View>
+    </ThemeProvider>
   );
 }
 
@@ -60,10 +68,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
+    // justifyContent: "center",
+    height: "100%",
   },
   goalList: { marginVertical: 10 },
   addGoalModal: {
     justifyContent: "center",
     alignItems: "center",
+    // height: 40,
   },
 });
